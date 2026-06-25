@@ -1,23 +1,36 @@
+import random
+
 print("********************************")
-print("bem vindo ao jogo de adivinhação")
+print("Bem-vindo ao jogo de adivinhação")
 print("********************************")
 
-numerosecreto = 40
+numero_secreto = random.randint(1, 100)
+tentativas_restantes = 10
 
-chute = input("Digite o seu número: ")
-print("você digitou: ",chute)
+while tentativas_restantes > 0:
+    print(f"Você tem {tentativas_restantes} tentativas restantes.")
+    chute = input("Qual é o seu chute? ")
 
-chuteNumerico = int (chute)
+    try:
+        chute_numerico = int(chute)
+    except ValueError:
+        print("Entrada inválida. Digite um número inteiro.")
+        continue
 
-acertou = chuteNumerico == numerosecreto
-maior = chuteNumerico > numerosecreto
-menor = chuteNumerico < numerosecreto
+    if chute_numerico == numero_secreto:
+        print("Parabéns! Você acertou o número secreto.")
+        break
 
+    if chute_numerico > numero_secreto:
+        print("Você errou! Seu chute foi maior que o número secreto.")
+    else:
+        print("Você errou! Seu chute foi menor que o número secreto.")
 
-#se voce digitar qualquer numero vou verificar se acertou ou errou
-if(numerosecreto==chuteNumerico):
-    print("Você acertou!")
-else:
-     print("Você errou!")
+    tentativas_restantes -= 1
+    if tentativas_restantes > 0:
+        print()
 
-print("fim do jogo")
+if tentativas_restantes == 0 and chute_numerico != numero_secreto:
+    print(f"Suas tentativas acabaram. O número secreto era {numero_secreto}.")
+
+print("Fim do jogo")
